@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>John DeBord</title>
+<meta name="description" content="John DeBord — links and contact.">
+<meta property="og:title" content="John DeBord">
+<meta property="og:description" content="Links and contact.">
+<meta property="og:url" content="https://johndebord.com">
+<meta name="theme-color" content="#000000">
+<style>
+  :root {
+    --bg: #000000;
+    --ink: #F5F5F7;
+    --focus: rgba(255, 255, 255, 0.75);
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-bg-hover: rgba(255, 255, 255, 0.11);
+    --glass-edge: rgba(255, 255, 255, 0.16);
+    --glass-edge-hover: rgba(255, 255, 255, 0.28);
+    --glass-hi: rgba(255, 255, 255, 0.28);
+    --glass-lo: rgba(255, 255, 255, 0.08);
+    --glass-side: rgba(255, 255, 255, 0.06);
+    --glass-shadow: 0 12px 32px rgba(0, 0, 0, 0.50);
+    --primary-bg: rgba(255, 255, 255, 0.12);
+    --primary-bg-hover: rgba(255, 255, 255, 0.17);
+    --primary-edge: rgba(255, 255, 255, 0.32);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .stage {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+  }
+
+  body.no-webgl .stage {
+    background:
+      radial-gradient(ellipse 55% 45% at 30% 35%, rgba(255, 255, 255, 0.07), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 72% 30%, rgba(255, 255, 255, 0.05), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 50% 78%, rgba(255, 255, 255, 0.04), transparent 70%);
+  }
+
+  #bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .links {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    width: min(20rem, 100%);
+  }
+
+  .pill {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    width: 100%;
+    padding: 1rem 1.9rem;
+    border-radius: 999px;
+    color: var(--ink);
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(14px) brightness(1.05);
+    backdrop-filter: blur(14px) brightness(1.05);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--glass-shadow),
+                inset 0 1px 1px var(--glass-hi),
+                inset 0 -1px 1px var(--glass-lo),
+                inset 1px 0 1px var(--glass-side),
+                inset -1px 0 1px var(--glass-side);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .pill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.07),
+                rgba(255, 255, 255, 0.02) 30%,
+                transparent 50%);
+    mix-blend-mode: screen;
+  }
+
+  .pill:hover, .pill:focus-visible {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-edge-hover);
+    transform: translateY(-1px);
+  }
+
+  .pill:active { transform: translateY(0); transition-duration: 0.1s; }
+
+  .pill:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .pill.primary {
+    background: var(--primary-bg);
+    border-color: var(--primary-edge);
+  }
+
+  .pill.primary:hover, .pill.primary:focus-visible {
+    background: var(--primary-bg-hover);
+  }
+
+  /* solid glass when the backdrop can't be sampled or the user opts out of transparency */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .pill { background: rgba(44, 44, 48, 0.92); }
+    .pill:hover, .pill:focus-visible { background: rgba(58, 58, 62, 0.92); }
+    .pill.primary { background: rgba(68, 68, 72, 0.94); }
+    .pill.primary:hover, .pill.primary:focus-visible { background: rgba(80, 80, 84, 0.94); }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .pill {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: rgba(44, 44, 48, 0.94);
+    }
+    .pill:hover, .pill:focus-visible { background: rgba(58, 58, 62, 0.94); }
+    .pill.primary { background: rgba(68, 68, 72, 0.96); }
+    .pill.primary:hover, .pill.primary:focus-visible { background: rgba(80, 80, 84, 0.96); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    }
+    .rise:nth-child(1) { animation-delay: 0.05s; }
+    .rise:nth-child(2) { animation-delay: 0.13s; }
+    .rise:nth-child(3) { animation-delay: 0.21s; }
+    .rise:nth-child(4) { animation-delay: 0.29s; }
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pill { transition: none; }
+    .pill:hover, .pill:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <nav class="links" aria-label="Links">
+    <div class="rise"><a class="pill" href="https://instagram.com/john_debord" target="_blank" rel="noopener"><span>Instagram</span></a></div>
+    <div class="rise"><a class="pill" href="https://x.com/john_debord" target="_blank" rel="noopener"><span>X&hairsp;/&hairsp;Twitter</span></a></div>
+    <div class="rise"><a class="pill" href="https://github.com/johndebord" target="_blank" rel="noopener"><span>GitHub</span></a></div>
+    <div class="rise"><a class="pill primary" href="mailto:john@johndebord.com"><span>Email me</span></a></div>
+  </nav>
+</main>
+<script>
+(function () {
+  var canvas = document.getElementById('bg');
+  var gl = canvas.getContext('webgl', { antialias: false, alpha: false })
+        || canvas.getContext('experimental-webgl', { antialias: false, alpha: false });
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!gl) {
+    document.body.classList.add('no-webgl');
+    canvas.remove();
+    return;
+  }
+
+  var VERT =
+    'attribute vec2 p;' +
+    'void main(){gl_Position=vec4(p,0.,1.);}';
+
+  var FRAG =
+    'precision highp float;' +
+    'uniform vec2 u_res;' +
+    'uniform float u_time;' +
+    'uniform vec2 u_mouse;' +
+
+    'float hash(vec2 p){' +
+    '  p=fract(p*vec2(234.34,435.345));' +
+    '  p+=dot(p,p+34.23);' +
+    '  return fract(p.x*p.y);' +
+    '}' +
+
+    'float noise(vec2 p){' +
+    '  vec2 i=floor(p),f=fract(p);' +
+    '  vec2 u=f*f*(3.-2.*f);' +
+    '  return mix(mix(hash(i),hash(i+vec2(1.,0.)),u.x),' +
+    '             mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),u.x),u.y);' +
+    '}' +
+
+    'float fbm(vec2 p){' +
+    '  float v=0.,a=.5;' +
+    '  for(int i=0;i<4;i++){' +
+    '    v+=a*noise(p);' +
+    '    p=p*2.03+vec2(11.7,7.3);' +
+    '    a*=.5;' +
+    '  }' +
+    '  return v;' +
+    '}' +
+
+    'void main(){' +
+    '  vec2 uv=(gl_FragCoord.xy-.5*u_res)/min(u_res.x,u_res.y);' +
+    '  vec2 m=u_mouse-.5;' +
+    '  uv+=m*vec2(.10,-.10);' +
+    '  float t=u_time*.035;' +
+
+    '  vec2 q=vec2(fbm(uv*1.4+t),fbm(uv*1.4-t*.7+vec2(5.2,1.3)));' +
+    '  vec2 r=vec2(fbm(uv*1.4+q*1.8+t*.45),fbm(uv*1.4+q*1.8-t*.3+vec2(8.3,2.8)));' +
+    '  float f=fbm(uv*1.4+r*1.6);' +
+
+    '  vec3 col=mix(vec3(.02),vec3(.10),smoothstep(.2,.8,q.x));' +
+    '  col=mix(col,vec3(.22),smoothstep(.4,.9,r.y)*f);' +
+    '  col*=f*2.3;' +
+
+    '  vec2 mp=(m*vec2(1.,-1.))*vec2(u_res.x/min(u_res.x,u_res.y),u_res.y/min(u_res.x,u_res.y));' +
+    '  float d=length(uv-mp*.5);' +
+    '  col+=vec3(.12)*exp(-d*3.)*.55;' +
+
+    '  col*=smoothstep(1.6,.25,length(uv));' +
+    '  gl_FragColor=vec4(col,1.);' +
+    '}';
+
+  function compile(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  var prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    document.body.classList.add('no-webgl');
+    canvas.remove();
+    return;
+  }
+  gl.useProgram(prog);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRes = gl.getUniformLocation(prog, 'u_res');
+  var uTime = gl.getUniformLocation(prog, 'u_time');
+  var uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+  }
+
+  var mx = 0.5, my = 0.5, tx = 0.5, ty = 0.5;
+
+  function render(t) {
+    gl.uniform1f(uTime, t);
+    gl.uniform2f(uMouse, mx, my);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  resize();
+  window.addEventListener('resize', function () {
+    resize();
+    if (reduceMotion) render(20);
+  });
+
+  if (reduceMotion) {
+    render(20);
+    return;
+  }
+
+  var hasPointer = false;
+  window.addEventListener('pointermove', function (e) {
+    hasPointer = true;
+    tx = e.clientX / window.innerWidth;
+    ty = e.clientY / window.innerHeight;
+  }, { passive: true });
+
+  function loop(ms) {
+    if (!hasPointer) {
+      // no cursor (touch devices): let the glow wander on its own
+      tx = 0.5 + 0.30 * Math.sin(ms * 0.00012);
+      ty = 0.5 + 0.25 * Math.cos(ms * 0.00008);
+    }
+    mx += (tx - mx) * 0.045;
+    my += (ty - my) * 0.045;
+    render(ms * 0.001);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
