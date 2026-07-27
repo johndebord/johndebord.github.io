@@ -67,6 +67,44 @@
     z-index: 0;
   }
 
+  /* eased stops keep the ramp smooth — a two-stop gradient bands on OLED */
+  .stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom,
+        #000 0%,
+        rgba(0, 0, 0, 0.738) 19%,
+        rgba(0, 0, 0, 0.541) 34%,
+        rgba(0, 0, 0, 0.382) 47%,
+        rgba(0, 0, 0, 0.278) 56.5%,
+        rgba(0, 0, 0, 0.194) 65%,
+        rgba(0, 0, 0, 0.126) 73%,
+        rgba(0, 0, 0, 0.075) 80.2%,
+        rgba(0, 0, 0, 0.042) 86.1%,
+        rgba(0, 0, 0, 0.021) 91%,
+        rgba(0, 0, 0, 0.008) 95.2%,
+        rgba(0, 0, 0, 0.002) 98.2%,
+        transparent 100%) top / 100% 22svh no-repeat,
+      linear-gradient(to top,
+        #000 0%,
+        rgba(0, 0, 0, 0.738) 19%,
+        rgba(0, 0, 0, 0.541) 34%,
+        rgba(0, 0, 0, 0.382) 47%,
+        rgba(0, 0, 0, 0.278) 56.5%,
+        rgba(0, 0, 0, 0.194) 65%,
+        rgba(0, 0, 0, 0.126) 73%,
+        rgba(0, 0, 0, 0.075) 80.2%,
+        rgba(0, 0, 0, 0.042) 86.1%,
+        rgba(0, 0, 0, 0.021) 91%,
+        rgba(0, 0, 0, 0.008) 95.2%,
+        rgba(0, 0, 0, 0.002) 98.2%,
+        transparent 100%) bottom / 100% 22svh no-repeat;
+  }
+
   .links {
     position: relative;
     z-index: 1;
@@ -164,7 +202,6 @@
     .rise:nth-child(1) { animation-delay: 0.05s; }
     .rise:nth-child(2) { animation-delay: 0.13s; }
     .rise:nth-child(3) { animation-delay: 0.21s; }
-    .rise:nth-child(4) { animation-delay: 0.29s; }
     @keyframes rise {
       to { opacity: 1; transform: translateY(0); }
     }
@@ -179,7 +216,6 @@
 <main class="stage">
   <canvas id="bg" aria-hidden="true"></canvas>
   <nav class="links" aria-label="Links">
-    <div class="rise"><a class="pill" href="https://instagram.com/john_debord" target="_blank" rel="noopener"><span>Instagram</span></a></div>
     <div class="rise"><a class="pill" href="https://x.com/john_debord" target="_blank" rel="noopener"><span>X&hairsp;/&hairsp;Twitter</span></a></div>
     <div class="rise"><a class="pill" href="https://github.com/johndebord" target="_blank" rel="noopener"><span>GitHub</span></a></div>
     <div class="rise"><a class="pill primary" href="mailto:john@johndebord.com"><span>Email me</span></a></div>
